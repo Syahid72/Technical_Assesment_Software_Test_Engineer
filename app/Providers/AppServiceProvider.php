@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -21,14 +20,6 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-        User::observe(UserObserver::class);
-    }
-}
-
-class UserObserver
-{
-    public function creating(User $user)
-    {
-        $user->role = 'user';
+        //
     }
 }

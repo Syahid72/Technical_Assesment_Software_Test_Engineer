@@ -1,0 +1,27 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class LoginTest extends TestCase
+{
+    use RefreshDatabase; // This trait will refresh the database after each test
+
+    public function testSuccessfulLogin()
+    {
+        $email = 'admin@astronomerguy.project';
+        $password = 'astronomer_guy';
+
+        $response = $this->post('/login', [
+            'email' => $email,
+            'password' => $password
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/home');
+        $this->assertAuthenticatedAs(User::where('email', $email)->first());
+    }
+}
